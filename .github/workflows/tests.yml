@@ -47,4 +47,5 @@ jobs:
           mvn spring-boot:stop
 
       - name: Stop database
+        run: |
           docker-compose down
