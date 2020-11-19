@@ -8,8 +8,24 @@ security:
   - apiKeyAuth: []
 paths:
   /applications:
+    post:
+      description: register a new application
+      operationId: registerApplication
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/RegisteringApplication'
+      responses:
+        '201':
+          description: success
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Token'
+
     get:
-      description: get the list of all fruits
+      description: get the list of all applications
       operationId: getApplications
       responses:
         '200':
@@ -20,6 +36,35 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Application'
+  /badges:
+    post:
+      description: Create a new badge
+      operationId: createBadge
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Badge'
+      responses:
+        '201':
+          description: success
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Badge'
+
+    get:
+      description: get the list of all badges
+      operationId: getBadges
+      responses:
+        '200':
+          description: success
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Badge'
   /fruits:
     post:
       description: create a fruit
@@ -90,8 +135,37 @@ components:
         expirationDateTime:
           type: string
           format: date-time
+    RegisteringApplication:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        description:
+          type: string
     Application:
       type: object
       properties:
         name:
+          type: string
+        url:
+          type: string
+        description:
+          type: string
+        token:
+          type: string
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+    Badge:
+      type: object
+      properties:
+        name:
+          type: string
+        image:
+          type: string
+        description:
           type: string
