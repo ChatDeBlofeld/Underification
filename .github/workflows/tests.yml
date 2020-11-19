@@ -41,7 +41,10 @@ jobs:
           cd fruits-specs
           mvn clean test
 
-      - name: Stop servers
+      - name: Stop server
         run: |
+          cd fruits-impl
           mvn spring-boot:stop
+
+      - name: Stop database
           docker-compose down
